@@ -115,7 +115,7 @@ export function Editor({ initial, canSave }: { initial: SiteContent; canSave: bo
               <div className="grid-link" key={i}>
                 <Field label="Label" value={l.label} onChange={(v) => update((d) => ({ ...d, links: d.links.map((x, k) => (k === i ? { ...x, label: v } : x)) }))} />
                 <Field label="URL" value={l.url} onChange={(v) => update((d) => ({ ...d, links: d.links.map((x, k) => (k === i ? { ...x, url: v } : x)) }))} />
-                <button className="btn ghost danger" onClick={() => update((d) => ({ ...d, links: d.links.filter((_, k) => k !== i) }))} aria-label={`Remove ${l.label}`}>Remove</button>
+                <button className="btn ghost danger" onClick={() => update((d) => ({ ...d, links: d.links.filter((_, k) => k !== i), removed: [...(d.removed ?? []), `link:${l.url}`] }))} aria-label={`Remove ${l.label}`}>Remove</button>
               </div>
             ))}
             <button className="btn" onClick={() => update((d) => ({ ...d, links: [...d.links, { label: "", url: "" }] }))}>+ Add link</button>
@@ -173,7 +173,7 @@ export function Editor({ initial, canSave }: { initial: SiteContent; canSave: bo
                   <div className="row">
                     <button className="btn" onClick={() => update((d) => ({ ...d, projects: move(d.projects, i, -1) }))} disabled={i === 0}>↑ Up</button>
                     <button className="btn" onClick={() => update((d) => ({ ...d, projects: move(d.projects, i, 1) }))} disabled={i === c.projects.length - 1}>↓ Down</button>
-                    <ConfirmDelete label={p.title} onConfirm={() => update((d) => ({ ...d, projects: d.projects.filter((_, k) => k !== i) }))} />
+                    <ConfirmDelete label={p.title} onConfirm={() => update((d) => ({ ...d, projects: d.projects.filter((_, k) => k !== i), removed: [...(d.removed ?? []), p.id] }))} />
                   </div>
                 </div>
               </details>

@@ -33,6 +33,13 @@ export default async function Home() {
               <a className="btn primary" href="#projects">See my projects</a>
               {profile.cvUrl && <a className="btn" href={profile.cvUrl} target="_blank" rel="noreferrer">Download CV</a>}
             </div>
+            {c.links.length > 0 && (
+              <ul className="social" aria-label="Find me online">
+                {c.links.map((l) => (
+                  <li key={l.url}><a href={l.url} target="_blank" rel="noreferrer">{l.label}</a></li>
+                ))}
+              </ul>
+            )}
           </div>
           {profile.photo && <img className="hero-photo" src={profile.photo} alt={`Photo of ${profile.name}`} />}
         </section>

@@ -22,8 +22,18 @@ export async function getContent(): Promise<SiteContent> {
   try {
     await ensureTable();
     const rows = (await sql`select data from site_content where id = 1`) as { data: SiteContent }[];
-    // Merge with defaults so new fields added in code always have a value.
-    return rows[0] ? { ...defaultContent, ...rows[0].data } : defaultContent;
+    if (!rows[0]) return defaultContent;
+    // Merge with defaults so new fields added in code always have a value,
+    // and so projects and links added in code appear even after the admin has saved once.
+    const data = { ...defaultContent, ...rows[0].data };
+    const removed = new Set(data.removed ?? []);
+    const projectIds = new Set(data.projects.map((p) => p.id));
+    const linkUrls = new Set(data.links.map((l) => l.url));
+    return {
+      ...data,
+      projects: [...data.projects, ...defaultContent.projects.filter((p) => !projectIds.has(p.id) && !removed.has(p.id))],
+      links: [...data.links, ...defaultContent.links.filter((l) => !linkUrls.has(l.url) && !removed.has(`link:${l.url}`))],
+    };
   } catch (err) {
     console.error("Could not read content, showing defaults:", err);
     return defaultContent;

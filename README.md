@@ -1,6 +1,6 @@
 # Portfolio with admin panel
 
-**Live:** [portfolio-n5v3.vercel.app](https://portfolio-n5v3.vercel.app) · **Code:** [github.com/Jaloliddin-Kulmatov/Portfolio](https://github.com/Jaloliddin-Kulmatov/Portfolio)
+**Live:** [jkportfolio-phi.vercel.app](https://jkportfolio-phi.vercel.app) · **Code:** [github.com/Jaloliddin-Kulmatov/Portfolio_Jaloliddin_Kulmatov](https://github.com/Jaloliddin-Kulmatov/Portfolio_Jaloliddin_Kulmatov)
 
 Personal portfolio of Jaloliddin Kulmatov. Edit every text and project from `/admin`. No code changes needed.
 
