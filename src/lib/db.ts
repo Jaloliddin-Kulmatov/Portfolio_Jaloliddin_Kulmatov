@@ -29,9 +29,11 @@ export async function getContent(): Promise<SiteContent> {
     const removed = new Set(data.removed ?? []);
     const projectIds = new Set(data.projects.map((p) => p.id));
     const linkUrls = new Set(data.links.map((l) => l.url));
+    const certIds = new Set((data.certificates ?? []).map((c) => c.id));
     return {
       ...data,
       projects: [...data.projects, ...defaultContent.projects.filter((p) => !projectIds.has(p.id) && !removed.has(p.id))],
+      certificates: [...(data.certificates ?? []), ...defaultContent.certificates.filter((c) => !certIds.has(c.id) && !removed.has(`cert:${c.id}`))],
       links: [...data.links, ...defaultContent.links.filter((l) => !linkUrls.has(l.url) && !removed.has(`link:${l.url}`))],
     };
   } catch (err) {

@@ -1,4 +1,5 @@
 import { ProjectGrid } from "@/components/ProjectGrid";
+import { SocialIcon } from "@/components/SocialIcon";
 import { getContent } from "@/lib/db";
 
 // Rebuilt when the admin saves (revalidatePath("/")), and at most once a minute otherwise.
@@ -17,8 +18,16 @@ export default async function Home() {
             <a href="#projects">Projects</a>
             <a href="#experience">Experience</a>
             <a href="#skills">Skills</a>
+            <a href="#certificates">Certificates</a>
             <a href="#contact">Contact</a>
           </nav>
+          <ul className="nav-social" aria-label="My accounts">
+            {c.links.map((l) => (
+              <li key={l.url}>
+                <a href={l.url} target="_blank" rel="noreferrer" aria-label={l.label} title={l.label}><SocialIcon label={l.label} /></a>
+              </li>
+            ))}
+          </ul>
         </div>
       </header>
 
@@ -36,7 +45,7 @@ export default async function Home() {
             {c.links.length > 0 && (
               <ul className="social" aria-label="Find me online">
                 {c.links.map((l) => (
-                  <li key={l.url}><a href={l.url} target="_blank" rel="noreferrer">{l.label}</a></li>
+                  <li key={l.url}><a href={l.url} target="_blank" rel="noreferrer"><SocialIcon label={l.label} />{l.label}</a></li>
                 ))}
               </ul>
             )}
@@ -114,6 +123,30 @@ export default async function Home() {
             </ul>
           </div>
         </section>
+
+        {c.certificates.length > 0 && (
+          <section className="wrap section" id="certificates" aria-labelledby="cert-h">
+            <h2 id="cert-h">Certificates</h2>
+            <div className="certs">
+              {c.certificates.map((x) => (
+                <article className="cert" key={x.id}>
+                  {x.image ? (
+                    <a href={x.image} target="_blank" rel="noreferrer" className="cert-img">
+                      <img src={x.image} alt={`Certificate: ${x.title}`} loading="lazy" />
+                    </a>
+                  ) : (
+                    <div className="cert-img cert-text" aria-hidden="true"><span>{x.title.split(" ")[0]}</span></div>
+                  )}
+                  <div className="cert-body">
+                    <h3>{x.title}</h3>
+                    <p className="muted small">{x.issuer} · {x.date}</p>
+                    {x.detail && <p className="small">{x.detail}</p>}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <footer className="footer" id="contact">

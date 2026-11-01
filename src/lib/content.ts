@@ -36,6 +36,16 @@ export interface Stat {
   label: string;
 }
 
+export interface Certificate {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  detail: string;
+  /** Image of the certificate (leave empty for ones that show private details such as a birth date). */
+  image: string;
+}
+
 export interface SiteContent {
   profile: {
     name: string;
@@ -53,6 +63,7 @@ export interface SiteContent {
   experience: Experience[];
   skills: SkillGroup[];
   awards: string[];
+  certificates: Certificate[];
   /** Ids of built-in projects and links the owner deleted, so they don't come back from the defaults. */
   removed?: string[];
 }
@@ -66,7 +77,7 @@ export const defaultContent: SiteContent = {
     about: [
       "I'm from Uzbekistan and study International Engineering and Science at Jeonbuk National University in Korea, on a full scholarship. This semester I'm on exchange at Universiti Malaya.",
       "I'm passionate about science and technology, with a strong interest in web development, machine learning, data science and problem-solving.",
-      "I founded ICOM, an AI platform for international students in Korea. It earned a patent and a conference paper.",
+      "I have 2 years of experience as a full-stack developer: websites, backends, automation and machine learning. I founded ICOM, an AI platform for international students in Korea, which earned a patent application and a conference paper.",
     ],
     location: "Jeonju, South Korea",
     email: "jaloliddinqulmatov12@gmail.com",
@@ -76,6 +87,7 @@ export const defaultContent: SiteContent = {
   links: [
     { label: "GitHub", url: "https://github.com/Jaloliddin-Kulmatov" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/jaloliddin-kulmatov/" },
+    { label: "Instagram", url: "https://www.instagram.com/jk__abroad/" },
     { label: "Telegram", url: "https://t.me/JaloliddinKulmatov" },
   ],
   stats: [
@@ -271,14 +283,29 @@ export const defaultContent: SiteContent = {
     { id: "ai", name: "AI / ML", items: ["LLM APIs (OpenAI, Groq)", "Function calling", "Embeddings", "Hugging Face", "Computer vision", "scikit-learn"] },
     { id: "web", name: "Web", items: ["Next.js", "React", "Tailwind", "Flask", "FastAPI", "PostgreSQL", "REST APIs"] },
     { id: "data", name: "Data", items: ["NumPy", "Pandas", "Matplotlib", "Seaborn", "Plotly"] },
-    { id: "lang", name: "Languages", items: ["Uzbek (native)", "English (IELTS 7.5)", "Korean (TOPIK 4)", "Russian", "German (beginner)"] },
+    { id: "lang", name: "Languages", items: ["Uzbek (native)", "English (IELTS 7.5)", "Korean (TOPIK 4)", "German (B2, onSET)", "Russian"] },
   ],
   awards: [
     "Paper: “Design and Implementation of an AI-Assisted Information and Community Platform for International Students in Korea”, 2026 Summer Conference",
     "Patent from the ICOM project (2026)",
     "JBNU President's Award: perfect 4.5/4.5 GPA for a full year",
-    "Winner, UNOSD Summer Camp, Seoul (2026)",
-    "Finalist, regional AI Hackathon, South Korea",
+    "JBNU President's Award: Excellence Award, Global Talent (Oct 2026)",
+    "Certificate of Excellence, 2026 SDGs Youth Summer Camp (UNOSD, GGGI), Seoul",
+    "Top 40 of 1000 teams with ICOM, GSC Hackathon (May 2026)",
+    "Finalist, JBNU AI Daily Problems Hackathon (Sep 2025)",
     "Fellow, Silk Road Health Data Science Fellowship (Feb–Aug 2026)",
+  ],
+  certificates: [
+    {"id": "jbnu-award", "title": "President's Award: Excellence Award (Global Talent)", "issuer": "Jeonbuk National University", "date": "Oct 2026", "detail": "For developing the core skills the university values, raising its reputation and being a role model for other students.", "image": "/certificates/jbnu-award.jpg"},
+    {"id": "sdgs-camp", "title": "Certificate of Excellence, 2026 SDGs Youth Summer Camp", "issuer": "GGGI and UNOSD, Seoul", "date": "Aug 2026", "detail": "For outstanding achievement and exemplary participation; signed by Ban Ki-moon, President of GGGI. Topic: carbon markets and SDG 13.", "image": "/certificates/sdgs-camp.jpg"},
+    {"id": "silk-road", "title": "Silk Road Health Data Science Fellowship", "issuer": "Mongolian Society of AI in Medicine", "date": "Feb – Aug 2026", "detail": "Health Data Science Bootcamp III and monthly webinars with leaders in AI and healthcare.", "image": "/certificates/silk-road.jpg"},
+    {"id": "datacamp-ai-engineer", "title": "Associate AI Engineer for Developers", "issuer": "DataCamp", "date": "Mar 2026", "detail": "26-hour track: LLM APIs, prompt engineering, embeddings and building AI apps.", "image": "/certificates/datacamp-ai-engineer.jpg"},
+    {"id": "onset-german", "title": "German B2 (onSET)", "issuer": "g.a.s.t., test at Universiti Malaya", "date": "Oct 2026", "detail": "CEFR level B2, 96 points.", "image": ""},
+    {"id": "ielts", "title": "IELTS Academic 7.5 (C1)", "issuer": "British Council, IDP, Cambridge", "date": "Sep 2024", "detail": "Listening 8.0, Reading 8.5, Writing 6.5, Speaking 6.0.", "image": ""},
+    {"id": "topik", "title": "TOPIK II Level 4", "issuer": "National Institute for International Education, Korea", "date": "Jan 2026", "detail": "Korean proficiency test, 151 / 300.", "image": ""},
+    {"id": "gimje-supporter", "title": "SNS Global Supporter, 28th Gimje Horizon Festival", "issuer": "Mayor of Gimje City", "date": "Aug – Sep 2026", "detail": "Appointed as one of the foreign student supporters who promoted the festival online.", "image": "/certificates/gimje-supporter.jpg"},
+    {"id": "udemy-python", "title": "100 Days of Code: The Complete Python Pro Bootcamp", "issuer": "Udemy (Dr. Angela Yu)", "date": "Aug 2025", "detail": "56.5 hours: 100 Python projects, from games to web apps, automation and data science.", "image": "/certificates/udemy-python.jpg"},
+    {"id": "42-algorithms", "title": "Express Algorithm course", "issuer": "42.uz", "date": "Feb 2026", "detail": "Algorithms and data structures course.", "image": "/certificates/42-algorithms.jpg"},
+    {"id": "myiq", "title": "IQ test: 128", "issuer": "myIQ", "date": "Feb 2026", "detail": "Online IQ test certificate.", "image": "/certificates/myiq.jpg"},
   ],
 };

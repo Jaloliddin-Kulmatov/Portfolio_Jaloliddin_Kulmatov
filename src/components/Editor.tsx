@@ -225,6 +225,29 @@ export function Editor({ initial, canSave }: { initial: SiteContent; canSave: bo
 
             <h2 style={{ marginTop: 32 }}>Awards & publications</h2>
             <ListField label="One per line" value={c.awards} separator="line" onChange={(v) => update((d) => ({ ...d, awards: v }))} rows={8} />
+
+            <h2 style={{ marginTop: 32 }}>Certificates ({c.certificates.length})</h2>
+            <p className="muted small">Leave the image empty for certificates that show your birth date or ID numbers.</p>
+            <button className="btn" onClick={() => update((d) => ({ ...d, certificates: [{ id: newId(), title: "New certificate", issuer: "", date: "", detail: "", image: "" }, ...d.certificates] }))}>+ Add certificate</button>
+            {c.certificates.map((x, i) => {
+              const setCert = (patch: Partial<typeof x>) => update((d) => ({ ...d, certificates: d.certificates.map((y, k) => (k === i ? { ...y, ...patch } : y)) }));
+              return (
+                <div className="item" key={x.id}>
+                  <Field label="Title" value={x.title} onChange={(v) => setCert({ title: v })} />
+                  <div className="grid-link">
+                    <Field label="Issued by" value={x.issuer} onChange={(v) => setCert({ issuer: v })} />
+                    <Field label="Date" value={x.date} onChange={(v) => setCert({ date: v })} />
+                  </div>
+                  <Field label="Details" value={x.detail} onChange={(v) => setCert({ detail: v })} multiline rows={2} />
+                  <FileField label="Image" value={x.image} onChange={(v) => setCert({ image: v })} accept="image/*" />
+                  <div className="row">
+                    <button className="btn" onClick={() => update((d) => ({ ...d, certificates: move(d.certificates, i, -1) }))} disabled={i === 0}>↑ Up</button>
+                    <button className="btn" onClick={() => update((d) => ({ ...d, certificates: move(d.certificates, i, 1) }))} disabled={i === c.certificates.length - 1}>↓ Down</button>
+                    <ConfirmDelete label={x.title} onConfirm={() => update((d) => ({ ...d, certificates: d.certificates.filter((_, k) => k !== i), removed: [...(d.removed ?? []), `cert:${x.id}`] }))} />
+                  </div>
+                </div>
+              );
+            })}
           </section>
         )}
       </main>

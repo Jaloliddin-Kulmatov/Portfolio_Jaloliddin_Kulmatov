@@ -69,6 +69,15 @@ function clean(c: SiteContent): SiteContent {
     })),
     skills: (c.skills ?? []).slice(0, 12).map((g, i) => ({ id: str(g.id, 40) || `skill-${i}`, name: str(g.name, 60), items: list(g.items, 40) })),
     awards: list(c.awards, 30),
+    certificates: (c.certificates ?? []).slice(0, 40).map((x, i) => ({
+      id: str(x.id, 60) || `cert-${i}`,
+      title: str(x.title, 200),
+      issuer: str(x.issuer, 160),
+      date: str(x.date, 60),
+      detail: str(x.detail, 600),
+      image: url(x.image),
+    })),
+    removed: list(c.removed, 300),
   };
 }
 
